@@ -415,7 +415,7 @@ async def p(ctx, url: str):
 
     while int(voice.is_playing()) == 0: # ถ้าเพลงไม่ได้เล่นก็ให้เล่น
         # เล่นเพลง
-        voice.play(discord.FFmpegPCMAudio(executable="A:/Documents/GitHub/Miura-Prototype/ffmpeg.exe", source=URL, **FFMPEG_OPTIONS))
+        voice.play(discord.FFmpegPCMAudio(source=URL, **FFMPEG_OPTIONS))
         # ส่งข้อความกลับ
         await ctx.send(f"🎶 **Playing** `{bot.queue_name[0]}`")
         bot.queue.pop(0)
@@ -432,7 +432,7 @@ async def s(ctx):
         with YoutubeDL(YDL_OPTIONS) as ydl:
             info = ydl.extract_info(bot.queue[0], download=False)
         URL = info['url']
-        voice.play(discord.FFmpegPCMAudio(executable="A:/Documents/GitHub/Miura-Prototype/ffmpeg.exe", source=URL, **FFMPEG_OPTIONS))
+        voice.play(discord.FFmpegPCMAudio(source=URL, **FFMPEG_OPTIONS))
         voice.is_playing()
         await ctx.send('⏩ **Skipped**')
         bot.queue.pop(0)
