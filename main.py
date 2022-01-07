@@ -315,6 +315,12 @@ async def c_countdis(ctx):
     bot.timer_dis = -6
     await ctx.send("⏹ **Canceled**")
 
+@bot.command()
+async def send(ctx, id, *, text):
+	if 269000561255383040 == ctx.message.author.id :
+		channel = ctx.bot.get_channel(int(id))
+		await channel.send(text)
+
 
 # Mute
 bot.mute_cancel_code = 0
@@ -381,6 +387,7 @@ async def dis(ctx):
     await voice_client.disconnect()
 
 bot.queue = []
+bot.queue_name = []
 bot.queue_notdel = []
 
 @bot.command()
@@ -404,13 +411,15 @@ async def p(ctx, url: str):
         filename = ydl.prepare_filename(info)
     URL = info['url']
     bot.queue_notdel.append(filename)
+    bot.queue_name.append(filename)
 
     while int(voice.is_playing()) == 0: # ถ้าเพลงไม่ได้เล่นก็ให้เล่น
         # เล่นเพลง
-        voice.play(discord.FFmpegPCMAudio(source=URL, **FFMPEG_OPTIONS))
+        voice.play(discord.FFmpegPCMAudio(executable="A:/Documents/GitHub/Miura-Prototype/ffmpeg.exe", source=URL, **FFMPEG_OPTIONS))
         # ส่งข้อความกลับ
-        await ctx.send(f"🎶 **Playing** `{bot.queue_notdel[0]}`")
+        await ctx.send(f"🎶 **Playing** `{bot.queue_name[0]}`")
         bot.queue.pop(0)
+        bot.queue_name.pop(0)
 
 @bot.command()
 async def s(ctx):
@@ -423,13 +432,15 @@ async def s(ctx):
         with YoutubeDL(YDL_OPTIONS) as ydl:
             info = ydl.extract_info(bot.queue[0], download=False)
         URL = info['url']
-        voice.play(discord.FFmpegPCMAudio(source=URL, **FFMPEG_OPTIONS))
+        voice.play(discord.FFmpegPCMAudio(executable="A:/Documents/GitHub/Miura-Prototype/ffmpeg.exe", source=URL, **FFMPEG_OPTIONS))
         voice.is_playing()
         await ctx.send('⏩ **Skipped**')
         bot.queue.pop(0)
+        bot.queue_name.pop(0)
         bot.queue_notdel.pop(0)
     except:
         await ctx.send("ℹ️ **Can't find the song in the queue**")
+        bot.queue_name.clear()
         bot.queue_notdel.clear()
 
 @bot.command()
@@ -456,6 +467,7 @@ async def q(ctx):
 @bot.command()
 async def c(ctx):
     bot.queue.clear()
+    bot.queue_name.clear()
     bot.queue_notdel.clear()
     await ctx.send("✅ **Queue Cleared**")
 
