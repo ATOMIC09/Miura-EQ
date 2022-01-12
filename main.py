@@ -21,6 +21,7 @@ import math
 import pdf2image
 import numpy as np
 import deepfryer
+import gdrive_dl
 
 intents = discord.Intents.default()
 intents.members = True
@@ -1152,11 +1153,8 @@ async def deepfry(ctx):
         file = discord.File("deepfryer_output/miura_autosave-fry.png")
         await ctx.send(file=file)
 
-@bot.event
-async def on_ready():
-    await bot.change_presence(activity=discord.Game(name=bot.version))
-    print('Miura Started')
 
+# Attachments Detection
 @bot.listen()
 async def on_message(message):
     try:
@@ -1172,6 +1170,22 @@ async def on_message(message):
             with open(Name, 'wb') as out_file:
                 print('Saving : ' + Name)
                 shutil.copyfileobj(r.raw, out_file)
+
+# Add Role on Join
+@bot.event
+async def on_member_join(person):
+	try: 
+		member_role_id = 727555789056639027 # GGWPㅣGΛMΞS ROOM
+		await person.add_roles(person.guild.get_role(member_role_id))
+	except:
+		member_role_id = 851081137093738576 # Bot Datacenter
+		await person.add_roles(person.guild.get_role(member_role_id))
+        
+@bot.event
+async def on_ready():
+    await bot.change_presence(activity=discord.Game(name=bot.version))
+    gdrive_dl.download_file_from_google_drive("1rVl9NFS21ckBAD7tEYGrZkpHWtPZvtfy", "model")
+    print('Miura Started')
 
 @bot.event
 async def on_command_error(ctx, error):
