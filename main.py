@@ -1154,43 +1154,83 @@ async def deepfry(ctx):
         await ctx.send(file=file)
 
 ######################################### Automatic System ##########################################
-
-# Scamming Protection
 @bot.listen()
 async def on_message(message):
+    # Scamming Protection
     if message.author.id != bot.user.id:
+        keyword = ""
+        channel_admin = bot.get_channel(929670988092825630)
+        member = message.author
+        role = discord.utils.get(message.guild.roles, name="⚠️ HACKED ⚠️")
+
+        if "http" in message.content.lower():
+            keyword += "`http` "
+
+        if "free" in message.content.lower():
+            keyword += "`Free` "
+
+        if "nitro" in message.content.lower():
+            keyword += "`Nitro` "
+            
         if "@everyone" in message.content.lower():
-            if "Nitro" or "nitro" in message.content.lower():
-                channel_admin = bot.get_channel(931047869308362772)
-                p = discord.Embed(title = "⚠ **Scamming Detection**", color = 0xFF3C3C)
-                p.add_field(name=f"🔑 **Keyword detected**", value=f"`Nitro`")
-                p.add_field(name=f"🧑 **Sent by**", value=f"<@{message.author.id}>")
-                p.add_field(name=f"ℹ **Status**", value=f"*`Not yet deleted`*")
-                p.description = f"**[Go to message](https://discord.com/channels/{message.guild.id}/{message.channel.id}/{message.id})**"
-                await channel_admin.send(embed = p)
+            keyword += "`@everyone` "
 
-                if "http" in message.content.lower():
-                    channel_admin = bot.get_channel(931047869308362772)
-                    p2 = discord.Embed(title = "⚠ **Scamming Detection**", color = 0xFF3C3C)
-                    p2.add_field(name=f"🔑 **Keyword detected**", value=f"`Nitro`\n`http`")
-                    p2.add_field(name=f"🧑 **Sent by**", value=f"<@{message.author.id}>")
-                    p2.add_field(name=f"ℹ **Status**", value=f"*`Deleted`*")
-                    await channel_admin.send(embed = p2)
-                    
-                    member = message.author
-                    role = discord.utils.get(message.guild.roles, name="⚠️ HACKED ⚠️")
-                    h = discord.Embed(title = "⚠️ **Scamming Detected** ⚠️", color = 0xFF0000)
-                    h.description = "Free Discord Nitro Scamming"
-                    h.add_field(name=f"🧑 **Sent by**", value=f"<@{member.id}>")
-                    
-                    await member.add_roles(role)
-                    await message.delete()
-                    await message.channel.send(embed = h)
+        if "@here" in message.content.lower():
+            keyword += "`@here` "
 
+        if "nitro" in message.content.lower() and "free" in message.content.lower() and "http" in message.content.lower():
+            await member.add_roles(role)
+            await message.delete()
+            
+            p2 = discord.Embed(title = "⚠ **Security Alert**", color = 0xFF3C3C)
+            p2.add_field(name=f"🔑 **Keyword detected**", value=keyword)
+            p2.add_field(name=f"<:windows_user_white:931065351301656626> **Sent by**", value=f"<@{message.author.id}>")
+            p2.add_field(name=f"ℹ **Status**", value=f"*`Deleted`*")
+            await channel_admin.send(embed = p2)
 
-# Attachments Detection
-@bot.listen()
-async def on_message(message):
+            user = discord.Embed(title = "⚠️ **Scamming Detected** ⚠️", color = 0xFF0000)
+            user.description = "Free Discord Nitro Scamming"
+            user.add_field(name=f"<:windows_user_white:931065351301656626> **Sent by**", value=f"<@{member.id}>")
+            await message.channel.send(embed = user)
+
+        elif "free" in message.content.lower() and "@everyone" in message.content.lower() or "@here" in message.content.lower():
+            p2 = discord.Embed(title = "⚠ **Security Alert**", color = 0xFF3C3C)
+            p2.add_field(name=f"🔑 **Keyword detected**", value=keyword)
+            p2.add_field(name=f"<:windows_user_white:931065351301656626> **Sent by**", value=f"<@{message.author.id}>")
+            p2.add_field(name=f"ℹ **Status**", value=f"*`Not yet deleted`*")
+            p2.description = f"**[Go to message](https://discord.com/channels/{message.guild.id}/{message.channel.id}/{message.id})**"
+            await channel_admin.send(embed = p2)
+
+        elif "nitro" in message.content.lower() and "@everyone" in message.content.lower() or "@here" in message.content.lower():
+            await message.add_reaction("⚠")
+
+            p2 = discord.Embed(title = "⚠ **Security Alert**", color = 0xFF3C3C)
+            p2.add_field(name=f"🔑 **Keyword detected**", value=keyword)
+            p2.add_field(name=f"<:windows_user_white:931065351301656626> **Sent by**", value=f"<@{message.author.id}>")
+            p2.add_field(name=f"ℹ **Status**", value=f"*`Not yet deleted`*")
+            p2.description = f"**[Go to message](https://discord.com/channels/{message.guild.id}/{message.channel.id}/{message.id})**"
+            await channel_admin.send(embed = p2)
+
+        elif "nitro" in message.content.lower() and "free" in message.content.lower():
+            await message.add_reaction("⚠")
+            
+            p2 = discord.Embed(title = "⚠ **Security Alert**", color = 0xFF3C3C)
+            p2.add_field(name=f"🔑 **Keyword detected**", value=keyword)
+            p2.add_field(name=f"<:windows_user_white:931065351301656626> **Sent by**", value=f"<@{message.author.id}>")
+            p2.add_field(name=f"ℹ **Status**", value=f"*`Not yet deleted`*")
+            p2.description = f"**[Go to message](https://discord.com/channels/{message.guild.id}/{message.channel.id}/{message.id})**"
+            await channel_admin.send(embed = p2)
+
+        elif "http" in message.content.lower() and "free" in message.content.lower():    
+            p2 = discord.Embed(title = "⚠ **Security Alert**", color = 0xFF3C3C)
+            p2.add_field(name=f"🔑 **Keyword detected**", value=keyword)
+            p2.add_field(name=f"<:windows_user_white:931065351301656626> **Sent by**", value=f"<@{message.author.id}>")
+            p2.add_field(name=f"ℹ **Status**", value=f"*`Not yet deleted`*")
+            p2.description = f"**[Go to message](https://discord.com/channels/{message.guild.id}/{message.channel.id}/{message.id})**"
+            await channel_admin.send(embed = p2)
+    
+    
+    # Attachments Detection
     try:
         url = message.attachments[0].url
         no1,no2,no3,no4,no5,no6,no7 = url.split("/")
