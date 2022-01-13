@@ -1097,7 +1097,7 @@ async def color(ctx):
             os.remove(Name)
             os.rename("miura_autosave",Name)
 
-        net = cv2.dnn.readNet("model/colorization_deploy_v2.prototxt", "Data/database/colorModel/colorization_release_v2.caffemodel")
+        net = cv2.dnn.readNet("model/colorization_deploy_v2.prototxt", "model/colorization_release_v2.caffemodel")
         pts = np.load("model/pts_in_hull.npy")
 
         class8 = net.getLayerId("class8_ab")
