@@ -1159,7 +1159,7 @@ async def on_message(message):
     # Scamming Protection
     if message.author.id != bot.user.id:
         keyword = ""
-        channel_admin = bot.get_channel(929670988092825630)
+        channel_admin = bot.get_channel(931047869308362772)
         member = message.author
         role = discord.utils.get(message.guild.roles, name="⚠️ HACKED ⚠️")
 
