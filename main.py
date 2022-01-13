@@ -1097,7 +1097,7 @@ async def color(ctx):
             os.remove(Name)
             os.rename("miura_autosave",Name)
 
-        net = cv2.dnn.readNet("model/colorization_deploy_v2.prototxt", "tmp/colorization_release_v2.caffemodel")
+        net = cv2.dnn.readNet("model/colorization_deploy_v2.prototxt", "/Data/database/colorModel/colorization_release_v2.caffemodel")
         pts = np.load("model/pts_in_hull.npy")
 
         class8 = net.getLayerId("class8_ab")
@@ -1184,7 +1184,7 @@ async def on_member_join(person):
 @bot.event
 async def on_ready():
     await bot.change_presence(activity=discord.Game(name=bot.version))
-    gdrive_dl.download_file_from_google_drive("1rVl9NFS21ckBAD7tEYGrZkpHWtPZvtfy", "/tmp")
+    gdrive_dl.download_file_from_google_drive("1rVl9NFS21ckBAD7tEYGrZkpHWtPZvtfy", "/Data/database/colorModel")
     print('Miura Started')
 
 @bot.event
