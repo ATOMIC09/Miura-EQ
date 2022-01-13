@@ -1,4 +1,4 @@
-discord.py==1.5.1
+discord.py==1.7.3
 requests
 python-dotenv==0.10.1
 youtube_dl==2021.12.17
