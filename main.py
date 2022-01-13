@@ -1184,7 +1184,7 @@ async def on_member_join(person):
 @bot.event
 async def on_ready():
     await bot.change_presence(activity=discord.Game(name=bot.version))
-    gdrive_dl.download_file_from_google_drive("1rVl9NFS21ckBAD7tEYGrZkpHWtPZvtfy", "/model/colorization_release_v2.caffemodel")
+    gdrive_dl.download_file_from_google_drive("1rVl9NFS21ckBAD7tEYGrZkpHWtPZvtfy", "model/colorization_release_v2.caffemodel")
     print('Miura Started')
 
 @bot.event
