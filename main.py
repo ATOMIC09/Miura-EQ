@@ -234,25 +234,25 @@ async def countdis(ctx, timer: int):
     second_str = str(second)
 
     # เริ่มนับ
-    if bot.timer >= 0 and bot.timer < 10:
+    if bot.timer_dis >= 0 and bot.timer_dis < 10:
         message = await ctx.send(f"Time remaining: **{second_str} secs**")
 
-    elif bot.timer >= 10 and bot.timer < 60:
+    elif bot.timer_dis >= 10 and bot.timer_dis < 60:
         message = await ctx.send(f"Time remaining: **{second_str} secs**")
 
-    elif bot.timer >= 60 and bot.timer < 3600:
+    elif bot.timer_dis >= 60 and bot.timer_dis < 3600:
         message = await ctx.send(f"Time remaining: **{minute_str} mins {second_str} secs**")
 
-    elif bot.timer >= 3600 and bot.timer < 86400:
+    elif bot.timer_dis >= 3600 and bot.timer_dis < 86400:
         message = await ctx.send(f"Time remaining: **{hour_str} hours {minute_str} mins {second_str} secs**")
 
-    elif bot.timer >= 86400 and bot.timer < 2629744:
+    elif bot.timer_dis >= 86400 and bot.timer_dis < 2629744:
         message = await ctx.send(f"Time remaining: **{day_str} days {hour_str} hours {minute_str} mins {second_str} secs**")
 
-    elif bot.timer >= 2629744 and bot.timer < 31556926:
+    elif bot.timer_dis >= 2629744 and bot.timer_dis < 31556926:
         message = await ctx.send(f"Time remaining: **{month_str} months {day_str} days {hour_str} hours {minute_str} mins {second_str} secs**")
 
-    elif bot.timer >= 31556926:
+    elif bot.timer_dis >= 31556926:
         message = await ctx.send(f"Time remaining: **{year_str} years {month_str} months {day_str} days {hour_str} hours {minute_str} mins {second_str} secs**")
 
     while bot.timer_dis >= 0:
@@ -275,25 +275,25 @@ async def countdis(ctx, timer: int):
         minute_str = str(minute)
         second_str = str(second)
                 
-        if bot.timer >= 0 and bot.timer < 10:
+        if bot.timer_dis >= 0 and bot.timer_dis < 10:
             await message.edit(content=f"Time remaining: **{second_str} secs **")
 
-        elif bot.timer >= 10 and bot.timer < 60:
+        elif bot.timer_dis >= 10 and bot.timer_dis < 60:
             await message.edit(content=f"Time remaining: **{second_str} secs**")
 
-        elif bot.timer >= 60 and bot.timer < 3600:
+        elif bot.timer_dis >= 60 and bot.timer_dis < 3600:
             await message.edit(content=f"Time remaining: **{minute_str} mins {second_str} secs**")
 
-        elif bot.timer >= 3600 and bot.timer < 86400:
+        elif bot.timer_dis >= 3600 and bot.timer_dis < 86400:
             await message.edit(content=f"Time remaining: **{hour_str} hours {minute_str} mins {second_str} secs**")
 
-        elif bot.timer >= 86400 and bot.timer < 2629744:
+        elif bot.timer_dis >= 86400 and bot.timer_dis < 2629744:
             await message.edit(content=f"Time remaining: **{day_str} days {hour_str} hours {minute_str} mins {second_str} secs**")
 
-        elif bot.timer >= 2629744 and bot.timer < 31556926:
+        elif bot.timer_dis >= 2629744 and bot.timer_dis < 31556926:
             await message.edit(content=f"Time remaining: **{month_str} months {day_str} days {hour_str} hours {minute_str} mins {second_str} secs**")
 
-        elif bot.timer >= 31556926:
+        elif bot.timer_dis >= 31556926:
             await message.edit(content=f"Time remaining: **{year_str} years {month_str} months {day_str} days {hour_str} hours {minute_str} mins {second_str} secs**")
 
         await asyncio.sleep(1)
