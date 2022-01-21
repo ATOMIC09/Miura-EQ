@@ -11,3 +11,4 @@ pdf2image==1.16.0
 numpy==1.21.4
 pyloudnorm==0.1.0
 moviepy
+soundfile
