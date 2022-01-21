@@ -29,7 +29,7 @@ import earrape_warning
 intents = discord.Intents.default()
 intents.members = True
 
-bot = commands.Bot(command_prefix='+', description="wat", intents=intents)
+bot = commands.Bot(command_prefix='%', description="wat", intents=intents)
 bot.remove_command('help')
 bot.version = "Version 2.6"
 
