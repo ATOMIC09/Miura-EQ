@@ -4,3 +4,4 @@ libfontconfig1
 libice6
 libopencv-core-dev
 poppler-utils
+libsndfile1
