@@ -6,8 +6,8 @@ import io
 
 def check_audio(data):
     start = time.process_time()
-
-    out, err = subprocess.Popen(f"ffmpeg -hide_banner -loglevel error -read_ahead_limit -1 -i cache:pipe: -ac 2 -f f64le -acodec pcm_f64le -ar 44100 -", stdin = subprocess.PIPE, stdout = subprocess.PIPE, stderr = subprocess.PIPE).communicate(input = data)
+    cmd = "ffmpeg -hide_banner -loglevel error -read_ahead_limit -1 -i cache:pipe: -ac 2 -f f64le -acodec pcm_f64le -ar 44100 -"
+    out, err = subprocess.Popen(cmd, stdin = subprocess.PIPE, stdout = subprocess.PIPE, stderr = subprocess.PIPE).communicate(input = data)
 
     if err != b"":
         if err.find(b"Invalid data found when processing input") > -1:
