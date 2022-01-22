@@ -1344,13 +1344,7 @@ async def on_message(message):
         for attachment in message.attachments:
             if attachment.filename.endswith(check_files):
                 data = await attachment.read()
-
-                #try:
                 loudness, maxamp, time = earrape_warning.check_audio(data)
-                #except Exception as error:
-                    #print(f"Error occured while processing file {attachment.filename}")
-                    #print(f"Error: {error}")
-                #else:
                 if decisionFunctionDelete(loudness, maxamp):
                     await message.add_reaction("🔊")
                     await message.add_reaction("⚠️")
