@@ -1354,9 +1354,19 @@ async def on_message(message):
                         await message.add_reaction("🔊")
                         await message.add_reaction("⚠️")
 
+                        filename = "earrape.mp3"
+                        with open(filename, "wb") as file:
+                            file.write(data)
+                        os.remove("earrape.mp3")
+
                     elif decisionFunctionMark(loudness, maxamp):
                         await message.add_reaction("🔊")
-                        await message.add_reaction("<:Deny:921703523111022642>")
+                        await message.add_reaction("⚡")
+
+                        filename = "earrape.mp3"
+                        with open(filename, "wb") as file:
+                            file.write(data)
+                        os.remove("earrape.mp3")
 
 
 # List of Role & Emoji
