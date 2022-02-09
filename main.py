@@ -1807,7 +1807,10 @@ async def on_member_join(person):
 @bot.event
 async def on_ready():
     await bot.change_presence(activity=discord.Game(name=bot.version))
-    gdrive_dl.download_file_from_google_drive("1rVl9NFS21ckBAD7tEYGrZkpHWtPZvtfy", "model/colorization_release_v2.caffemodel")
+    print("Downloading : colorization_release_v2.caffemodel")
+    gdrive_dl.download_file_from_google_drive("1rVl9NFS21ckBAD7tEYGrZkpHWtPZvtfy", "A:/Documents/GitHub/Miura-Prototype/model/colorization_release_v2.caffemodel")
+    print("Downloading : shape_predictor_68_face_landmarks.dat")
+    gdrive_dl.download_file_from_google_drive("1MycdtBY4bIlfOcIokkEtDft8qaqm3lqI", "gaze_tracking/trained_models/shape_predictor_68_face_landmarks.dat")
     print('Miura Started')
 
 
