@@ -800,7 +800,17 @@ async def video_fps(ctx, url: str):
 async def grayscale(ctx):
     async with ctx.typing():
         Name = "miura_autosave.png"
-        os.rename("miura_autosave",Name)
+        src="miura_autosave"
+        dst="miura_autosave2"
+        try:
+            shutil.copy(src,dst)
+            os.rename("miura_autosave",Name)
+            os.rename("miura_autosave2","miura_autosave")
+        except:
+            shutil.copy(src,dst)
+            os.remove(Name)
+            os.rename("miura_autosave",Name)
+            os.rename("miura_autosave2","miura_autosave")
         img = cv2.imread(Name,cv2.IMREAD_UNCHANGED)
 
         # Save the transparency channel alpha
@@ -894,11 +904,17 @@ async def text(ctx,* , input: str):
 
 
         Name = "miura_autosave.jpg"
+        src="miura_autosave"
+        dst="miura_autosave2"
         try:
-            os.rename("miura_autosave",Name)        
+            shutil.copy(src,dst)
+            os.rename("miura_autosave",Name)
+            os.rename("miura_autosave2","miura_autosave")
         except:
+            shutil.copy(src,dst)
             os.remove(Name)
             os.rename("miura_autosave",Name)
+            os.rename("miura_autosave2","miura_autosave")
 
         image = cv2.imread(Name,cv2.IMREAD_UNCHANGED)
 
@@ -918,7 +934,17 @@ async def text(ctx,* , input: str):
 async def wide(ctx):
     async with ctx.typing():
         Name = "miura_autosave.png"
-        os.rename("miura_autosave",Name)
+        src="miura_autosave"
+        dst="miura_autosave2"
+        try:
+            shutil.copy(src,dst)
+            os.rename("miura_autosave",Name)
+            os.rename("miura_autosave2","miura_autosave")
+        except:
+            shutil.copy(src,dst)
+            os.remove(Name)
+            os.rename("miura_autosave",Name)
+            os.rename("miura_autosave2","miura_autosave")
         image = cv2.imread(Name,cv2.IMREAD_UNCHANGED)
 
         try:
@@ -943,7 +969,17 @@ async def wide(ctx):
 async def ultrawide(ctx):
     async with ctx.typing():
         Name = "miura_autosave.png"
-        os.rename("miura_autosave",Name)
+        src="miura_autosave"
+        dst="miura_autosave2"
+        try:
+            shutil.copy(src,dst)
+            os.rename("miura_autosave",Name)
+            os.rename("miura_autosave2","miura_autosave")
+        except:
+            shutil.copy(src,dst)
+            os.remove(Name)
+            os.rename("miura_autosave",Name)
+            os.rename("miura_autosave2","miura_autosave")
         image = cv2.imread(Name,cv2.IMREAD_UNCHANGED)
 
         try:
@@ -968,7 +1004,17 @@ async def ultrawide(ctx):
 async def resize(ctx,* , new_size: str):
     async with ctx.typing():
         Name = "miura_autosave.png"
-        os.rename("miura_autosave",Name)
+        src="miura_autosave"
+        dst="miura_autosave2"
+        try:
+            shutil.copy(src,dst)
+            os.rename("miura_autosave",Name)
+            os.rename("miura_autosave2","miura_autosave")
+        except:
+            shutil.copy(src,dst)
+            os.remove(Name)
+            os.rename("miura_autosave",Name)
+            os.rename("miura_autosave2","miura_autosave")
         image = cv2.imread(Name,cv2.IMREAD_UNCHANGED)
 
         try:
@@ -1003,11 +1049,17 @@ async def resize(ctx,* , new_size: str):
 @bot.command()
 async def imginfo(ctx):
     Name = "miura_autosave.png"
+    src="miura_autosave"
+    dst="miura_autosave2"
     try:
+        shutil.copy(src,dst)
         os.rename("miura_autosave",Name)
+        os.rename("miura_autosave2","miura_autosave")
     except:
+        shutil.copy(src,dst)
         os.remove(Name)
         os.rename("miura_autosave",Name)
+        os.rename("miura_autosave2","miura_autosave")
     image = cv2.imread(Name,cv2.IMREAD_UNCHANGED)
 
     try:
@@ -1033,70 +1085,80 @@ async def imginfo(ctx):
 @bot.command()
 async def pdf2png(ctx):
     async with ctx.typing():
+        Name = "miura_autosave.pdf"
+        src="miura_autosave"
+        dst="miura_autosave2"
         try:
-            url = ctx.message.attachments[0].url            # check for an pdf, call exception if none found
-        except IndexError:
-            print("Error: No attachments")
-            await ctx.send("❎ **No attachments detected**")
-        else:
-            if url[0:26] == "https://cdn.discordapp.com":   # look to see if url is from discord
-                r = requests.get(url, stream=True)
-                pdfName = str(uuid.uuid4()) + '.pdf'      # uuid creates random unique id to use for pdf names
-                with open(pdfName, 'wb') as out_file:
-                    print('Saving PDF: ' + pdfName)
-                    shutil.copyfileobj(r.raw, out_file)     # save pdf (goes to project directory)
+            shutil.copy(src,dst)
+            os.rename("miura_autosave",Name)
+            os.rename("miura_autosave2","miura_autosave")
+        except:
+            shutil.copy(src,dst)
+            os.remove(Name)
+            os.rename("miura_autosave",Name)
+            os.rename("miura_autosave2","miura_autosave")
 
-                    pages = pdf2image.convert_from_path(pdfName, 200)
-                    
-                    for i in range(len(pages)):
-                        pages[i].save(f'pdf2image_output/page{i+1}.png', 'PNG')
-                        file = discord.File(f"pdf2image_output/page{i+1}.png")
-                        await ctx.send(file=file)
+        pages = pdf2image.convert_from_path(Name, 200)
+        
+        for i in range(len(pages)):
+            pages[i].save(f'pdf2image_output/page{i+1}.png', 'PNG')
+            file = discord.File(f"pdf2image_output/page{i+1}.png")
+            await ctx.send(file=file)
 
-                for i in range(len(pages)):
-                    os.remove(f"pdf2image_output/page{i+1}.png")
-                os.remove(f"{pdfName}")
-                await asyncio.sleep(2)
-                await ctx.send(f"✅ **The document was successfully converted\nℹ Number of pages: **{i+1}")
+    for i in range(len(pages)):
+        os.remove(f"pdf2image_output/page{i+1}.png")
+    os.remove(f"{Name}")
+    await asyncio.sleep(2)
+    await ctx.send(f"✅ **The document was successfully converted\nℹ Number of pages: **{i+1}")
 
 @bot.command()
 async def pdf2png_zip(ctx):
     async with ctx.typing():
         author = str(ctx.message.author)
+        Name = "miura_autosave.pdf"
+        src="miura_autosave"
+        dst="miura_autosave2"
         try:
-            url = ctx.message.attachments[0].url            # check for an pdf, call exception if none found
-        except IndexError:
-            print("Error: No attachments")
-            await ctx.send("❎ **No attachments detected**")
-        else:
-            if url[0:26] == "https://cdn.discordapp.com":   # look to see if url is from discord
-                r = requests.get(url, stream=True)
-                pdfName = str(uuid.uuid4()) + '.pdf'      # uuid creates random unique id to use for pdf names
-                with open(pdfName, 'wb') as out_file:
-                    print('Saving PDF: ' + pdfName)
-                    shutil.copyfileobj(r.raw, out_file)     # save pdf (goes to project directory)
+            shutil.copy(src,dst)
+            os.rename("miura_autosave",Name)
+            os.rename("miura_autosave2","miura_autosave")
+        except:
+            shutil.copy(src,dst)
+            os.remove(Name)
+            os.rename("miura_autosave",Name)
+            os.rename("miura_autosave2","miura_autosave")
 
-                    pages = pdf2image.convert_from_path(pdfName, 200)
+        pages = pdf2image.convert_from_path(Name, 200)
 
-                    for i in range(len(pages)):
-                        pages[i].save(f'pdf2image_output/page{i+1}.png', 'PNG')
-                    
-                    shutil.make_archive(f'{author}_{i+1}pages', 'zip', 'pdf2image_output')
-                    file = discord.File(f"{author}_{i+1}pages.zip")
-                    await ctx.send(file=file)
+        for i in range(len(pages)):
+            pages[i].save(f'pdf2image_output/page{i+1}.png', 'PNG')
+        
+        shutil.make_archive(f'{author}_{i+1}pages', 'zip', 'pdf2image_output')
+        file = discord.File(f"{author}_{i+1}pages.zip")
+        await ctx.send(file=file)
 
-                for i in range(len(pages)):
-                    os.remove(f"pdf2image_output/page{i+1}.png")
-                os.remove(f"{pdfName}")
-                os.remove(f"{author}_{i+1}pages.zip")
-                await asyncio.sleep(2)
-                await ctx.send(f"✅ **The document was successfully converted\nℹ Number of pages: **{i+1}")
+    for i in range(len(pages)):
+        os.remove(f"pdf2image_output/page{i+1}.png")
+    os.remove(f"{Name}")
+    os.remove(f"{author}_{i+1}pages.zip")
+    await asyncio.sleep(2)
+    await ctx.send(f"✅ **The document was successfully converted\nℹ Number of pages: **{i+1}")
 
 @bot.command()
 async def removebg(ctx):
     async with ctx.typing():
         Name = "miura_autosave.png"
-        os.rename("miura_autosave",Name)
+        src="miura_autosave"
+        dst="miura_autosave2"
+        try:
+            shutil.copy(src,dst)
+            os.rename("miura_autosave",Name)
+            os.rename("miura_autosave2","miura_autosave")
+        except:
+            shutil.copy(src,dst)
+            os.remove(Name)
+            os.rename("miura_autosave",Name)
+            os.rename("miura_autosave2","miura_autosave")
 
         # load image
         img = cv2.imread(Name)
@@ -1139,11 +1201,17 @@ async def removebg(ctx):
 async def color(ctx):
     async with ctx.typing():
         Name = "miura_autosave.png"
+        src="miura_autosave"
+        dst="miura_autosave2"
         try:
+            shutil.copy(src,dst)
             os.rename("miura_autosave",Name)
+            os.rename("miura_autosave2","miura_autosave")
         except:
+            shutil.copy(src,dst)
             os.remove(Name)
             os.rename("miura_autosave",Name)
+            os.rename("miura_autosave2","miura_autosave")
 
         net = cv2.dnn.readNet("model/colorization_deploy_v2.prototxt", "model/colorization_release_v2.caffemodel")
         pts = np.load("model/pts_in_hull.npy")
@@ -1183,13 +1251,18 @@ async def color(ctx):
 async def deepfry(ctx):
     async with ctx.typing():
         Name = "miura_autosave.png"
+        src="miura_autosave"
+        dst="miura_autosave2"
         try:
+            shutil.copy(src,dst)
             os.rename("miura_autosave",Name)
             shutil.move(Name,f"deepfryer_input/{Name}")
+            os.rename("miura_autosave2","miura_autosave")
         except:
             os.remove(Name)
             os.rename("miura_autosave",Name)
             shutil.move(Name,f"deepfryer_input/{Name}")
+            os.rename("miura_autosave2","miura_autosave")
 
         imageNormal = cv2.imread(Name)
         deepfryer.printFolders("deepfryer_input", "deepfryer_output")
@@ -1205,14 +1278,19 @@ async def deepfry(ctx):
 async def imgaudio(ctx):
     async with ctx.typing():
         # Image
-        imgName = "audio2video_image.png"
+        Name = "audio2video_image.png"
+        src="miura_autosave"
+        dst="miura_autosave2"
         try:
-            os.rename("miura_autosave",imgName)
-            shutil.move(imgName,f"audio2video_image_input/{imgName}")
+            shutil.copy(src,dst)
+            os.rename("miura_autosave",Name)
+            shutil.move(Name,f"audio2video_image_input/{Name}")
+            os.rename("miura_autosave2","miura_autosave")
         except:
-            os.remove(imgName)
-            os.rename("miura_autosave",imgName)
-            shutil.move(imgName,f"audio2video_image_input/{imgName}")
+            os.remove(Name)
+            os.rename("miura_autosave",Name)
+            shutil.move(Name,f"audio2video_image_input/{Name}")
+            os.rename("miura_autosave2","miura_autosave")
 
         await ctx.send("🔊 **Waiting for audio file**")
         await asyncio.sleep(15)
@@ -1220,13 +1298,18 @@ async def imgaudio(ctx):
         try:
             # Audio
             mp3Name = "audio2video_audio.mp3"
+            src="miura_autosave"
+            dst="miura_autosave2"
             try:
+                shutil.copy(src,dst)
                 os.rename("miura_autosave",mp3Name)
                 shutil.move(mp3Name,f"audio2video_audio_input/{mp3Name}")
+                os.rename("miura_autosave2","miura_autosave")
             except:
                 os.remove(mp3Name)
                 os.rename("miura_autosave",mp3Name)
-                shutil.move(mp3Name,f"audio2video_audio_inpust/{mp3Name}")
+                shutil.move(mp3Name,f"audio2video_audio_input/{mp3Name}")
+                os.rename("miura_autosave2","miura_autosave")
 
 
             image_path = "audio2video_image_input/audio2video_image.png"
@@ -1246,21 +1329,31 @@ async def imgaudio(ctx):
 async def videomix(ctx):
     async with ctx.typing():
         FirstName = "videomix1.mp4"
+        src="miura_autosave"
+        dst="miura_autosave2"
         try:
+            shutil.copy(src,dst)
             os.rename("miura_autosave",FirstName)
+            os.rename("miura_autosave2","miura_autosave")
         except:
             os.remove(FirstName)
             os.rename("miura_autosave",FirstName)
+            os.rename("miura_autosave2","miura_autosave")
 
         await ctx.send("📹 **Waiting for video file**")
         await asyncio.sleep(20)
         try:
             SecondName = "videomix2.mp4"
+            src="miura_autosave"
+            dst="miura_autosave2"
             try:
+                shutil.copy(src,dst)
                 os.rename("miura_autosave",SecondName)
+                os.rename("miura_autosave2","miura_autosave")
             except:
                 os.remove(SecondName)
                 os.rename("miura_autosave",SecondName)
+                os.rename("miura_autosave2","miura_autosave")
 
             clip1 = moviepy.editor.VideoFileClip("videomix1.mp4")
             clip2 = moviepy.editor.VideoFileClip("videomix2.mp4")
@@ -1280,14 +1373,19 @@ async def videomix(ctx):
 async def imgyt(ctx, url):
     async with ctx.typing():
         # Image
-        imgName = "audio2video_image.png"
+        Name = "audio2video_image.png"
+        src="miura_autosave"
+        dst="miura_autosave2"
         try:
-            os.rename("miura_autosave",imgName)
-            shutil.move(imgName,f"audio2video_image_input/{imgName}")
+            shutil.copy(src,dst)
+            os.rename("miura_autosave",Name)
+            shutil.move(Name,f"audio2video_image_input/{Name}")
+            os.rename("miura_autosave2","miura_autosave")
         except:
-            os.remove(imgName)
-            os.rename("miura_autosave",imgName)
-            shutil.move(imgName,f"audio2video_image_input/{imgName}")
+            os.remove(Name)
+            os.rename("miura_autosave",Name)
+            shutil.move(Name,f"audio2video_image_input/{Name}")
+            os.rename("miura_autosave2","miura_autosave")
         
         # Audio
         YDL_OPTIONS = {'format': 'bestaudio[ext=m4a]', 'noplaylist': 'True', 'outtmpl': '%(title)s.%(ext)s'}
@@ -1297,9 +1395,9 @@ async def imgyt(ctx, url):
 
         shutil.move(filename,f"audio2video_audio_input/{filename}")
 
-        image_path = "A:/Documents/GitHub/Miura-Prototype/audio2video_image_input/audio2video_image.png"
-        audio_path = f"A:/Documents/GitHub/Miura-Prototype/audio2video_audio_input/{filename}"
-        output_path = "A:/Documents/GitHub/Miura-Prototype/audio2video_video_output/audio2video_output.mp4"
+        image_path = "audio2video_image_input/audio2video_image.png"
+        audio_path = f"audio2video_audio_input/{filename}"
+        output_path = "audio2video_video_output/audio2video_output.mp4"
         audio2video.add_static_image_to_audio(image_path, audio_path, output_path)
 
         file = discord.File(output_path)
@@ -1313,13 +1411,18 @@ async def redeye(ctx):
     async with ctx.typing():
         # Image
         imgName = "miura_red_eye.jpg"
+        src="miura_autosave"
+        dst="miura_autosave2"
         try:
+            shutil.copy(src,dst)
             os.rename("miura_autosave",imgName)
             shutil.move(imgName,f"source_img/{imgName}")
+            os.rename("miura_autosave2","miura_autosave")
         except:
             os.remove(imgName)
             os.rename("miura_autosave",imgName)
             shutil.move(imgName,f"source_img/{imgName}")
+            os.rename("miura_autosave2","miura_autosave")
         
         red_eye.imagecov(imgName)
         output_path = "static/miura_red_eye.png"
