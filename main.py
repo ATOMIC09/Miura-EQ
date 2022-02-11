@@ -26,6 +26,7 @@ import audio2video
 import moviepy
 import earrape_warning
 import red_eye
+from petpetgif import petpet
 
 intents = discord.Intents.default()
 intents.members = True
