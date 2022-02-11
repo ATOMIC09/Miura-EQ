@@ -27,6 +27,7 @@ import moviepy
 import earrape_warning
 import red_eye
 from petpetgif import petpet
+import gtts
 
 intents = discord.Intents.default()
 intents.members = True
@@ -48,6 +49,7 @@ async def help(ctx):
     help.add_field(name="🔊 ยกเลิกการปิดเสียง", value="`%unmute [@USER]`")
     help.add_field(name="📄 แปลง PDF เป็นรูปภาพ", value="`%pdf2png` or `%pdf2png_zip`")
     help.add_field(name="📰 ดูคุณสมบัติรูปภาพ", value="`%imginfo`")
+    help.add_field(name="👄 สังเคราะห์เสียง", value="`%tts [ตัวย่อภาษา] [ข้อความ]`")
     help.add_field(name="❎ ยกเลิกคำสั่ง", value="`%c_[ชื่อคำสั่ง]`")
     await ctx.send(embed = help)
 
@@ -110,7 +112,7 @@ async def update(ctx):
     update.add_field(name="5️⃣ V 2.4 | 20/12/2021", value="`• Add: Text on Image\n• Add: Grayscale to Color\n• Add: Deep Fryer\n• Fix: Countdown Style\n• Fix: Cancel Command\n• Delete: PrivateKey`")
     update.add_field(name="6️⃣ V 2.5 | 12/01/2022", value="`• Add: Scamming Protection\n• Add: Role Selector\n• Fix: มี Model ของ %color แล้ว`")
     update.add_field(name="7️⃣ V 2.6 | 21/01/2022", value="`• Add: Earrape Warning\n• Add: Video Processing`")
-    update.add_field(name="8️⃣ V 2.7 | 09/02/2022", value="`• Add: Red Eye Meme\n• Add: Image Properties\n• Add: Video Processing`")
+    update.add_field(name="8️⃣ V 2.7 | 09/02/2022", value="`• Add: Red Eye Meme\n• Add: Text to Speech\n• Add: Image Properties\n• Add: Image Processing\n• Add: Video Processing`")
     await ctx.send(embed = update)
 
 
@@ -1457,6 +1459,15 @@ async def pet(ctx):
         await ctx.send(file=file)
         os.remove('miura_petpet.gif')
         os.remove(Name)
+
+@bot.command()
+async def tts(ctx,language: str,*, text: str):
+        tts = gtts.gTTS(text=text,lang=language)
+        tts.save('miura_tts.mp3')
+
+        file = discord.File('miura_tts.mp3')
+        await ctx.send(file=file)
+        os.remove('miura_tts.mp3')
 
 ######################################### Automatic System ##########################################
 decisionFunctionMark = lambda loudness, maxamp: maxamp > min(110, ((loudness + 1) ** 2 * 0.1 + 3) / 0.5 * -(loudness + 1))
