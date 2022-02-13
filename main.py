@@ -28,6 +28,7 @@ import earrape_warning
 import red_eye
 from petpetgif import petpet
 import gtts
+from discord.ext import tasks, commands
 
 intents = discord.Intents.default()
 intents.members = True
@@ -1948,13 +1949,23 @@ async def on_ready():
     gdrive_dl.download_file_from_google_drive("1rVl9NFS21ckBAD7tEYGrZkpHWtPZvtfy", "model/colorization_release_v2.caffemodel")
     print("Downloading : shape_predictor_68_face_landmarks.dat")
     gdrive_dl.download_file_from_google_drive("1MycdtBY4bIlfOcIokkEtDft8qaqm3lqI", "gaze_tracking/trained_models/shape_predictor_68_face_landmarks.dat")
+    status_change.start()
     print('Miura Started')
-
 
 @bot.event
 async def on_command_error(ctx, error):
     await ctx.send(f"⚠ **Error:** `{error}`")
     raise error
     
+@tasks.loop(seconds=301)
+async def status_change():
+    vc = bot.get_channel(942382756422377472)
+
+    try:
+        requests.get("https://exynas.myddns.me")
+        await vc.edit(name="Exynas : 🟢 ONLINE")
+    except:
+        await vc.edit(name="Exynas : 🔴 OFFLINE")
+
 Token = os.environ["MiuraToken"]
 bot.run(Token)
