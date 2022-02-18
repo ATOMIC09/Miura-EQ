@@ -17,3 +17,4 @@ Pillow==7.2.0
 werkzeug
 pet-pet-gif
 gTTS
+google_images_download

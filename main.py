@@ -29,6 +29,7 @@ import red_eye
 from petpetgif import petpet
 import gtts
 from discord.ext import tasks, commands
+import json
 
 intents = discord.Intents.default()
 intents.members = True
@@ -50,6 +51,7 @@ async def help(ctx):
     help.add_field(name="🔊 ยกเลิกการปิดเสียง", value="`%unmute [@USER]`")
     help.add_field(name="📄 แปลง PDF เป็นรูปภาพ", value="`%pdf2png` or `%pdf2png_zip`")
     help.add_field(name="📰 ดูคุณสมบัติรูปภาพ", value="`%imginfo`")
+    help.add_field(name="🔍 ค้นหารูปภาพ", value="`%imgser`")
     help.add_field(name="👄 สังเคราะห์เสียง", value="`%tts [ตัวย่อภาษา] [ข้อความ]`")
     help.add_field(name="❎ ยกเลิกคำสั่ง", value="`%c_[ชื่อคำสั่ง]`")
     await ctx.send(embed = help)
@@ -1469,6 +1471,29 @@ async def tts(ctx,language: str,*, text: str):
         file = discord.File('miura_tts.mp3')
         await ctx.send(file=file)
         os.remove('miura_tts.mp3')
+
+@bot.command()
+async def imgser(ctx):
+    Name = "miura_search.png"
+    src="miura_autosave"
+    dst="miura_autosave2"
+    try:
+        shutil.copy(src,dst)
+        os.rename("miura_autosave",Name)
+        os.rename("miura_autosave2","miura_autosave")
+    except:
+        os.remove(Name)
+        os.rename("miura_autosave",Name)
+        os.rename("miura_autosave2","miura_autosave")
+    
+    filePath = Name
+    searchUrl = 'https://yandex.com/images/search'
+    files = {'upfile': ('blob', open(filePath, 'rb'), 'image/jpeg')}
+    params = {'rpt': 'imageview', 'format': 'json', 'request': '{"blocks":[{"block":"b-page_type_search-by-image__link"}]}'}
+    response = requests.post(searchUrl, params=params, files=files)
+    query_string = json.loads(response.content)['blocks'][0]['params']['url']
+    img_search_url= searchUrl + '?' + query_string
+    await ctx.send(img_search_url)
 
 ######################################### Automatic System ##########################################
 decisionFunctionMark = lambda loudness, maxamp: maxamp > min(110, ((loudness + 1) ** 2 * 0.1 + 3) / 0.5 * -(loudness + 1))
