@@ -1717,7 +1717,7 @@ async def on_raw_reaction_add(payload):
             try:
                 msg_id = bot.addrole_message.id
             except:
-                msg_id = 000000000000000000
+                msg_id = 931113028148138024
 
             guild_id = payload.guild_id
             guild = discord.utils.find(lambda g : g.id == guild_id, bot.guilds)
@@ -1870,7 +1870,7 @@ async def on_raw_reaction_remove(payload):
             try:
                 msg_id = bot.addrole_message.id
             except:
-                msg_id = 000000000000000000
+                msg_id = 931113028148138024
 
             if message_id == msg_id:
                 guild_id = payload.guild_id
