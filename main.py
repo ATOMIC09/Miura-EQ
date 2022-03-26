@@ -1916,7 +1916,7 @@ async def on_raw_reaction_add(payload):
                 await msg.clear_reaction(approve_emoji)
                 await msg.clear_reaction(deny_emoji)
 
-                channel = bot.get_channel(929955422922747906)
+                channel = bot.get_channel(733324708988190801)
                 message_approve = await channel.send(f"{approve_emoji} **Added role** `{role_list[int(bot.role_number)-1]}` **to** <@{bot.role_user_req_id}>")
 
                 h = discord.Embed(title = "🔧 **Role Request**", color = 0x6EFF5A)
@@ -1935,7 +1935,7 @@ async def on_raw_reaction_add(payload):
                 await msg.clear_reaction(approve_emoji)
                 await msg.clear_reaction(deny_emoji)
 
-                channel = bot.get_channel(929955422922747906)
+                channel = bot.get_channel(733324708988190801)
                 message_approve = await channel.send(f"{deny_emoji} <@{bot.role_user_req_id}>**'s** `{role_list[int(bot.role_number)-1]}` **role request was denied**")
 
                 h = discord.Embed(title = "🔧 **Role Request**", color = 0xFF3C3C)
