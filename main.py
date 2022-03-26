@@ -1878,7 +1878,7 @@ async def role(ctx, number):
 @bot.event
 async def on_raw_reaction_add(payload):
     if bot.rolereq_message != 000000000000000000:
-        channel = bot.get_channel(733324708988190801)
+        channel = bot.get_channel(931047869308362772)
         message = bot.rolereq_message
         guild_id = payload.guild_id
         guild = discord.utils.find(lambda g : g.id == guild_id, bot.guilds)
@@ -1888,13 +1888,13 @@ async def on_raw_reaction_add(payload):
         print(f"payload.message_id : {payload.message_id}")
         payload.message_id = bot.rolereq_message.id
 
-        msg = await bot.get_channel(733324708988190801).fetch_message(payload.message_id)
+        msg = await bot.get_channel(931047869308362772).fetch_message(payload.message_id)
         bot.msg_id = msg.id # ไอดีข้อความ
         bot.msg_au_id = msg.author.id # ไอดีคนเขียนข้อความ
         
             
         if bot.rolereq_message.id == payload.message_id and member.id != 901017024698912809:
-            msg = await bot.get_channel(733324708988190801).fetch_message(payload.message_id)
+            msg = await bot.get_channel(931047869308362772).fetch_message(payload.message_id)
             bot.msg_id = msg.id # ไอดีข้อความ
             bot.msg_au_id = msg.author.id # ไอดีคนเขียนข้อความ
             user_react = payload.message_id # ไอดีคนรีแอ็ค
@@ -1911,7 +1911,7 @@ async def on_raw_reaction_add(payload):
                 await member.remove_roles(discord.utils.get(guild.roles, name = 'Pending Role Approval'))
                 print("Role Add Done")
                 print("Approved")
-                msg = await bot.get_channel(733324708988190801).fetch_message(bot.rolereq_message.id)
+                msg = await bot.get_channel(931047869308362772).fetch_message(bot.rolereq_message.id)
                 #await msg.remove_reaction(approve_emoji, payload.member)
                 await msg.clear_reaction(approve_emoji)
                 await msg.clear_reaction(deny_emoji)
@@ -1931,7 +1931,7 @@ async def on_raw_reaction_add(payload):
                 member = bot.member_request
                 await member.remove_roles(bot.role)
                 await member.remove_roles(discord.utils.get(guild.roles, name = 'Pending Role Approval'))
-                msg = await bot.get_channel(733324708988190801).fetch_message(bot.rolereq_message.id)
+                msg = await bot.get_channel(931047869308362772).fetch_message(bot.rolereq_message.id)
                 await msg.clear_reaction(approve_emoji)
                 await msg.clear_reaction(deny_emoji)
 
