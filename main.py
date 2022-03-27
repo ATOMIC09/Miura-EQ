@@ -1988,6 +1988,7 @@ async def on_ready():
     await bot.change_presence(activity=discord.Game(name="STARTING ●●○○ 🟡"))
     print("Downloading : shape_predictor_68_face_landmarks.dat")
     gdrive_dl.download_file_from_google_drive("1MycdtBY4bIlfOcIokkEtDft8qaqm3lqI", "gaze_tracking/trained_models/shape_predictor_68_face_landmarks.dat")
+    await asyncio.sleep(1)
     await bot.change_presence(activity=discord.Game(name="STARTING ●●●○ 🟡"))
     status_change.start()
     host_status_change.start()
