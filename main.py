@@ -1944,6 +1944,8 @@ async def on_raw_reaction_add(payload):
                 h.add_field(name=f"{deny_emoji} **Rejected by**", value=f"<@{payload.member.id}>")
                 await bot.rolereq_message.edit(embed=h)
     
+    guild_id = payload.guild_id
+    guild = discord.utils.find(lambda g : g.id == guild_id, bot.guilds)
     member = discord.utils.find(lambda m : m.id == payload.user_id, guild.members)
     if member.id != 901017024698912809:
         approve_emoji = "<:Approve:921703512382009354>"
