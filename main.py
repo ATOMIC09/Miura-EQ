@@ -1984,9 +1984,11 @@ async def on_member_join(person):
 async def on_ready():
     await bot.change_presence(activity=discord.Game(name="STARTING ●○○○ 🟡"))
     print("Downloading : colorization_release_v2.caffemodel")
+    await asyncio.sleep(1)
     gdrive_dl.download_file_from_google_drive("1rVl9NFS21ckBAD7tEYGrZkpHWtPZvtfy", "model/colorization_release_v2.caffemodel")
     await bot.change_presence(activity=discord.Game(name="STARTING ●●○○ 🟡"))
     print("Downloading : shape_predictor_68_face_landmarks.dat")
+    await asyncio.sleep(1)
     gdrive_dl.download_file_from_google_drive("1MycdtBY4bIlfOcIokkEtDft8qaqm3lqI", "gaze_tracking/trained_models/shape_predictor_68_face_landmarks.dat")
     await asyncio.sleep(1)
     await bot.change_presence(activity=discord.Game(name="STARTING ●●●○ 🟡"))
